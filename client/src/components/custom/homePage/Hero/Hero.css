@@ -1,0 +1,32 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Protest+Revolution&display=swap');
+
+.hero{
+    width: 100%;
+    min-height:100vh;
+    background: linear-gradient(rgba(8,0,58,0.7),rgba(8,0,58,0.7)), url("../src/assets/bg1.jpg");
+    background-position: center;
+    background-size: 100%;
+    color: #fff;
+  }
+
+  /* media query */
+  @media (max-width:850px){
+    .hero-text h1{
+      font-family: "Protest Revolution", sans-serif;
+      font-style: normal;
+      font-size: 40px;
+    }
+  }
+
+  @media (max-width:650px){
+    .hero-text h1{
+      font-size: 30px;
+      max-width: 400px;
+      margin: auto;
+    }
+    .hero-text p{
+      font-size: 14px;
+      margin: 15px auto 30px;
+    }
+  }
