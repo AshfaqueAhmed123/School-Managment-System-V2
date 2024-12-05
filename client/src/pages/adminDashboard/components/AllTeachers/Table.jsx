@@ -26,7 +26,44 @@ const TeacherTable = () => {
     setTeachers(updatedTeachers);
   };
 
-  
+  const teachersArray = [
+    {
+      fullname : "Imaran",
+      subject : "Islamiyat",
+      class : "X"
+    },
+    {
+      fullname : "Imaran",
+      subject : "Islamiyat",
+      class : "X"
+    },
+    {
+      fullname : "Imaran",
+      subject : "Islamiyat",
+      class : "X"
+    },
+    {
+      fullname : "Imaran",
+      subject : "Islamiyat",
+      class : "X"
+    },
+    {
+      fullname : "Imaran",
+      subject : "Islamiyat",
+      class : "X"
+    },
+    {
+      fullname : "Imaran",
+      subject : "Islamiyat",
+      class : "X"
+    }
+  ];
+
+  useEffect(()=>{
+    setTeachers(teachersArray)
+  },[])
+
+/*  
   useEffect(() => {
     (async ()=>{
       try {
@@ -52,6 +89,7 @@ const TeacherTable = () => {
     })()
     
   }, []);
+*/
 
   return (
     <div className="p-6">
@@ -67,7 +105,7 @@ const TeacherTable = () => {
               <DialogHeader>
                 <DialogTitle className="mb-3 mx-3">create new teacher</DialogTitle>
                 <DialogDescription className="h-[80vh] overflow-scroll">
-                  <CreateTeacherForm/>
+                  <CreateTeacherForm setTeachers={setTeachers} />
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>
@@ -100,10 +138,10 @@ const TeacherTable = () => {
             {teachers.map((teacher, index) => (
               <tr key={index} className="hover:bg-[#383854]">
                 <td className="px-6 py-4 text-sm font-medium">
-                  {teacher.fullname}
+                  {teacher?.fullname}
                 </td>
-                <td className="px-6 py-4 text-sm">{teacher.subject}</td>
-                <td className="px-6 py-4 text-sm">{teacher.class || "xth"}</td>
+                <td className="px-6 py-4 text-sm">{teacher?.subject}</td>
+                <td className="px-6 py-4 text-sm">{teacher?.class}</td>
                 <td className="px-6 py-4 text-sm text-center">
                   {/* Delete Button */}
                   <button

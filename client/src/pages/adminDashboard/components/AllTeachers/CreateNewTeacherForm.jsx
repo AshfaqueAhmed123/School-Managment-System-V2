@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
-const CreateTeacherForm = ({ onCreate }) => {
+const CreateTeacherForm = ({ onCreate, setTeachers }) => {
   const [formData, setFormData] = useState({
     name: '',
     subject: '',
-    email: '',
-    phone: '',
+    grade: '',
   });
 
   // Handle form input changes
@@ -20,13 +19,18 @@ const CreateTeacherForm = ({ onCreate }) => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    onCreate(formData); // Pass the form data to the parent onCreate function
+    setTeachers((prev) => [...prev,{
+      fullname:formData.name,
+      subject:formData.subject,
+      class : formData.grade
+    }])
+    // onCreate(formData); // Pass the form data to the parent onCreate function
     setFormData({
       name: '',
       subject: '',
-      email: '',
-      phone: '',
+      grade : ''
     }); // Clear the form after submission
+    
   };
 
   return (
@@ -67,36 +71,19 @@ const CreateTeacherForm = ({ onCreate }) => {
         />
       </div>
 
-      {/* Email Input */}
+      {/* class Input */}
       <div className="mb-4">
-        <label htmlFor="email" className="block text-sm font-medium mb-2">
-          Email Address
+        <label htmlFor="grade" className="block text-sm font-medium mb-2">
+          Class
         </label>
         <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
+          type="text"
+          id="grade"
+          name="grade"
+          value={formData.grade}
           onChange={handleChange}
           className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded-md"
           placeholder="Enter email address"
-          required
-        />
-      </div>
-
-      {/* Phone Input */}
-      <div className="mb-4">
-        <label htmlFor="phone" className="block text-sm font-medium mb-2">
-          Phone Number
-        </label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded-md"
-          placeholder="Enter phone number"
           required
         />
       </div>
