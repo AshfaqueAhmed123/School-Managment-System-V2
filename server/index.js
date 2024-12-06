@@ -40,6 +40,12 @@ import parentRouter from "./src/routes/parent.routes.js"
 import schoolRouter from "./src/routes/student.routes.js"
 import classRouter from "./src/routes/class.routes.js"
 import meetingRouter from "./src/routes/meeting.routes.js"
+import progressRouter from "./src/routes/progress.routes.js"
+import feeRouter from "./src/routes/fee.routes.js"
+import subjectRouter from "./src/routes/subject.routes.js"
+import resourceRouter from "./src/routes/resource.routes.js"
+import attendenceRouter from "./src/routes/attendence.routes.js"
+import assignmentRouter from "./src/routes/assignment.routes.js"
 
 app.use("/admin", adminRouter);
 app.use("/student", studentRouter);
@@ -48,6 +54,12 @@ app.use("/parent", parentRouter);
 app.use("/school", schoolRouter);
 app.use("/class", classRouter);
 app.use("/meeting", meetingRouter);
+app.use("/progress",progressRouter);
+app.use("/fee",feeRouter);
+app.use("/subject",subjectRouter);
+app.use("/resources",resourceRouter);
+app.use("/attendence",attendenceRouter);
+app.use("/assignment",assignmentRouter);
 
 
 // AuthRoutes

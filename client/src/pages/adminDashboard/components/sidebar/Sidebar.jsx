@@ -3,6 +3,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { LIGHT_THEME } from "../../constants/themeConstants";
 import LogoBlue from "../../assets/images/logo_blue.svg";
 import LogoWhite from "../../assets/images/logo_white.svg";
+import * as DialogPrimitive from "@radix-ui/react-dialog"
 import {
   MdOutlineAttachMoney,
   MdOutlineBarChart,
@@ -22,19 +23,29 @@ import { GrUserWorker } from "react-icons/gr";
 import { FaDollarSign } from "react-icons/fa";
 
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { FaPlus } from "react-icons/fa";
+
 import {useNavigate} from "react-router-dom"
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const notify = (message="something went wrong") => toast.error(message);
-
 
 import { Link } from "react-router-dom";
 import "./Sidebar.scss";
 import { SidebarContext } from "../../context/SidebarContext";
 
 const Sidebar = () => {
+
+  const notifyError = (message="something went wrong") => toast.error(message);
+
   const { theme } = useContext(ThemeContext);
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
   const navbarRef = useRef(null);
@@ -60,7 +71,8 @@ const Sidebar = () => {
 
   let navigate = useNavigate();
   const logout = () => {
-    let confirmation = confirm("do you want to logout?")
+    let confirmation;
+    confirmation = true;
     if(confirmation){
     try {
       (async ()=>{
@@ -78,7 +90,7 @@ const Sidebar = () => {
         }
       })()
     } catch (error) {
-      notify(error?.message || "something went wrong")
+      notifyError(error?.message || "something went wrong")
     }
   }
   } 
@@ -177,7 +189,7 @@ const Sidebar = () => {
           <ul className="menu-list">
             <li className="menu-item">
               <Link to="/admin/settings"
-              nClick={() => setActiveTab("settings")}
+              onClick={() => setActiveTab("settings")}
               className={`${actibveTab == "settings" ? 'menu-link active' : 'menu-link '}`}
               >
                 <span className="menu-link-icon">
@@ -186,13 +198,36 @@ const Sidebar = () => {
                 <span className="menu-link-text">Settings</span>
               </Link>
             </li>
-            <li className="menu-item" onClick={logout}>
-              <Link to="" className="menu-link">
+            <li className="menu-item">
+            <Dialog>
+            <DialogTrigger className="flex items-center">
+            <div className="menu-link">
                 <span className="menu-link-icon">
                   <MdOutlineLogout size={20} />
                 </span>
-                <span className="menu-link-text">Logout</span>
-              </Link>
+                <span className="menu-link-text">
+                    logout
+                </span>
+              </div>
+            </DialogTrigger>
+            <DialogContent className="bg-[#383854] text-white">
+              <DialogHeader>
+                <DialogTitle className="mb-3 mx-3">Do you want to logout ? </DialogTitle>
+                <DialogDescription className="h-[100px] overflow-scroll">
+                  <div className="w-full h-full flex items-center justify-center gap-10">
+                    <button className="text-xl capitalize text-white bg-red-800 px-4 py-2 rounded-md cursor-pointer hover:bg-red-900" onClick={logout}>logout</button>
+                    <DialogPrimitive.Close>
+                    <button className="text-xl capitalize text-black bg-white px-4 py-2 rounded-md cursor-pointer hover:opacity-60">
+                      close
+                    </button>
+                    </DialogPrimitive.Close>
+                    
+                  </div>
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+          
             </li>
           </ul>
         </div>

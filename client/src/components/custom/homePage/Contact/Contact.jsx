@@ -6,36 +6,46 @@ import phone_icon from "../../../../assets/phone-icon.png"
 import location_icon from "../../../../assets/location-icon.png"
 import white_arrow from "../../../../assets/white-arrow.png"
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const ContactSection = () => {
 
+  const notifyError = (message="something went wrong") => toast.error(message);
     const [result, setResult] = React.useState("");
 
     const onSubmit = async (event) => {
-      event.preventDefault();
-      setResult("Sending....");
-      const formData = new FormData(event.target);
-  
-      formData.append("access_key", `f2b7c4a8-0bb4-40e3-ab72-dee9a5683669`);
-  
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData
-      });
-  
-      const data = await response.json();
-  
-      if (data.success) {
-        setResult("Form Submitted Successfully");
-        event.target.reset();
-      } else {
-        console.log("Error", data);
-        setResult(data.message);
+      try {
+        event.preventDefault();
+        setResult("Sending....");
+        const formData = new FormData(event.target);
+
+        formData.append("access_key", `f2b7c4a8-0bb4-40e3-ab72-dee9a5683669`);
+
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          setResult("Form Submitted Successfully");
+          event.target.reset();
+        } else {
+          console.log("Error", data);
+          notifyError(data)
+          setResult(data.message);
+        }
+      } catch (error) {
+        notifyError(error)
       }
     }
 
 
   return (
     <div className='contact'>
+    <ToastContainer />
         <div className="contact-col">
             <h3>Send us a message <img src={msg_icon} alt="" /> </h3>
             <p>
