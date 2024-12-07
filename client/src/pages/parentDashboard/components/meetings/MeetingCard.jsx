@@ -4,6 +4,11 @@ import { SiGooglemeet } from "react-icons/si";
 
 
 const MeetingCard = ({ meeting }) => {
+
+  const joinMeeting = (e) => {
+    window.open(`http://localhost:3000/${e.target.id}`)
+  }
+
   return (
     <div className="h-full mx-10 bg-[#2E2E48] border-4 border-[#2E2E48] text-white rounded-lg p-6 flex flex-col justify-between mb-10">
       <div>
@@ -12,9 +17,9 @@ const MeetingCard = ({ meeting }) => {
         <div className="mt-4">
           <p className="text-sm">Date: {meeting.date}</p>
           <p className="text-sm">Time: {meeting.time}</p>
-          <p className="text-sm">student: {meeting.student}</p>
-          <p className="text-sm">class: {meeting.class}</p>
-          <p className="text-sm">parent: {meeting.parent}</p>
+          {/* <p className="text-sm">student: {meeting.student}</p> */}
+          {/* <p className="text-sm">class: {meeting.class}</p> */}
+          <p className="text-sm">teacher: {meeting.teacher}</p>
         </div>
       </div>
 
@@ -22,7 +27,7 @@ const MeetingCard = ({ meeting }) => {
         <button className="flex items-center px-6 py-2 bg-green-500 text-white rounded-md hover:cursor-not-allowed duration-200 opacity-30">
             pending
         </button>
-        <button className="flex items-center px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200 gap-2">
+        <button id={meeting._id} onClick={(e)=>{joinMeeting(e)}} className="flex items-center px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200 gap-2">
           <SiGooglemeet />
           join
         </button>

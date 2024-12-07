@@ -1,24 +1,29 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import MeetingCard from './MeetingCard'
 
 const Meeting = () => {
 
-  const meetingData = {
-    title: 'Team Sync-up',
-    description: 'Discuss project progress and next steps.',
-    student : "Ashfaque",
-    parent : "qurban ali",
-    class : "x",
-    date: '2024-12-01',
-    time: '10:00 AM',
-  }
+  const [meetings, setMeetings] = useState([]);
+
+  useEffect(() => {
+    (async ()=>{
+      try {
+        let res = await fetch("http://localhost:4000/meeting/");
+        res = await res.json()
+        if(res){
+          setMeetings(res?.data)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })()
+}, [meetings]);
 
 
   return (
     <div>
       <h1 className='text-2xl capitalize px-10 text-white mb-10'>your meetings</h1>
-     <MeetingCard meeting={meetingData}/>
-     <MeetingCard meeting={meetingData}/>
+      {meetings.map(meeting => <MeetingCard meeting={meeting} />)}
     </div>
   )
 }

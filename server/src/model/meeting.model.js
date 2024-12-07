@@ -1,17 +1,19 @@
 import mongoose,{Schema,model} from "mongoose";
 
 const meeting = new Schema({
+    title:{
+        type:String,
+        required:true
+    },
     meetingID:{
         type:String
     },
     teacher:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref : "Teacher",
+        type:String,
         required:true
     },
     parent:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref : "Parent",
+        type:String,
         required:true
     },
     student:{
@@ -24,13 +26,13 @@ const meeting = new Schema({
         ref : "class",
         // required:true
     },
-    scheduleDate:{
+    date:{
         type:String,
     },
-    scheduleTime:{
+    time:{
         type:String,
     },
-    scheduleStatus:{
+    status:{
         type:String,
         enum:["pending","compeleted","cancelled"],
         default:"pending",

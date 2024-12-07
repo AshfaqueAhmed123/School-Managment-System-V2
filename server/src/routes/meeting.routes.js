@@ -7,15 +7,8 @@ import {
 
 const router = Router();
 
-router.route("/create").post(createMeeting);
+router.route("/").post(createMeeting).get(getAllMeetings);
 
-router.route("/update/:id").patch();
-
-router.route("/delete/:id").delete(deleteMeeting);
-
-router.route("/getAll").get(getAllMeetings);
-
-router.route("get/:id").get();
-
+router.route("/:id").delete(deleteMeeting)
 
 export default router

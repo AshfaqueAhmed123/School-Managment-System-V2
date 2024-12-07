@@ -3,7 +3,9 @@ import {Router} from "express"
 const router = Router();
 
 
-router.route("/").post().get();
+router.route("/create")
+router.route("/get-all")
 router.route("/:id").get().patch().delete();
 
-export default router 
+
+export default router;

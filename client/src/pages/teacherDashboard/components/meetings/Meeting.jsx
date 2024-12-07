@@ -19,7 +19,7 @@ const Meeting = () => {
   useEffect(() => {
       (async ()=>{
         try {
-          let res = await fetch("http://localhost:4000/meeting/getAll");
+          let res = await fetch("http://localhost:4000/meeting/");
           res = await res.json()
           if(res){
             setMeetings(res?.data)
@@ -64,7 +64,7 @@ const Meeting = () => {
               <DialogHeader>
                 <DialogTitle>create new meeting</DialogTitle>
                 <DialogDescription className="h-[80vh] overflow-scroll">
-                  <CreateMeetingForm />
+                  <CreateMeetingForm setMeetings={setMeetings} />
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>
@@ -76,7 +76,7 @@ const Meeting = () => {
       <MeetingCard meeting={meetingData} />
       <MeetingCard meeting={meetingData} />
       <MeetingCard meeting={meetingData} /> */}
-      {meetings.map(meeting => <MeetingCard deleteMeeting={deleteMeeting} meeting={meeting} />)}
+      {meetings.map(meeting => <MeetingCard key={meeting._id} deleteMeeting={deleteMeeting} meeting={meeting} />)}
 
     </>
   );
