@@ -3,43 +3,6 @@
 
 <br>
 
-### technologies used : 
- `== frontend : `
- -
- * ReactJS
- <br>
- * Tailwind
- <br>
- * ShadcnUI
- <br>
- * MUI
- <br>
- * Sass
- <br>
- * Recharts
- <br>
- * framer motion
-
-<br>
-
- `== backend`
- -
- * NodeJS
- <br>
- * ExpressJS
- <br>
- * Socket.io
- <br>
- * MongoDB
- <br>
- * Mongoose ODM
- <br>
- * JWT (JSON Web Tokens) Authentication and Authorization
- 
- -
-
- ## 
-
 ## Project Screenshots : 
 ### Homepage
 !["homepage"](./images/8.png)
