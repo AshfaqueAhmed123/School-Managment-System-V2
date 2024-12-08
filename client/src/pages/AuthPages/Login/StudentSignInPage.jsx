@@ -83,7 +83,7 @@ const StudentSignInPage = () => {
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password" className="text-xl">Password</Label>
-              <Input value={password} onChange={(e)=>{
+              <Input type="password" value={password} onChange={(e)=>{
                 setPassword(e.target.value)
               }} id="password" placeholder="*******" />
             </div>
