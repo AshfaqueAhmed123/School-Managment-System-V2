@@ -3,7 +3,8 @@ import {
 
     register,
     login,
-    logout
+    logout,
+    changePassword
 
 } from "../controllers/teacher.controllers.js"
 import { verifyTeacher } from "../middlewares/teacherAuth.middleware.js";
@@ -18,6 +19,7 @@ router.route("/login").post(login);
 router.route("/logout").post(verifyTeacher,logout);
 router.route("account-details").get();
 router.route("/updateAccount").patch();
+router.route("/changePassword").patch(verifyTeacher,changePassword);
 
 // assignment routes
 router.route("/assignment").post().patch().delete();
