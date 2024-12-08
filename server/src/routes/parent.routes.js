@@ -4,7 +4,8 @@ import {
     login,
     logout,
     updateAccountDetails,
-    refreshAccessToken
+    refreshAccessToken,
+    changePassword
 } from "../controllers/parent.controllers.js"
 import {verifyParent} from "../middlewares/parentAuth.middleware.js"
 
@@ -15,6 +16,7 @@ router.route("/register").post(register);
 router.route("/login").post(login);
 router.route("/logout").post(verifyParent,logout);
 router.route("/updateAccount").patch(verifyParent,updateAccountDetails);
+router.route("/changePassword").patch(verifyParent,changePassword);
 
 // children 
 router.route("/children").get();

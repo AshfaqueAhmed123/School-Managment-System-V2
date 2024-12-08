@@ -4,6 +4,8 @@ import ApiResponse from "../utils/ApiResponse.utils.js";
 import jwt from "jsonwebtoken";
 
 export const verifyParent = async (req, res, next) => {
+  console.log("verfication....");
+  
   try {
     const token =
       req.cookies?.accessToken ||

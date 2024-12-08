@@ -131,6 +131,40 @@ const updateAccountDetails = async (req,res)=>{
 }
 
 
+const changePassword = async (req,res) => {
+  console.log("yes");
+  try {
+    const {currentPassword,newPassword} = req.body;
+    if(!currentPassword || !newPassword || currentPassword.trim().length == 0 || newPassword.trim().length == 0){
+      return res.status(400).json(
+        new ApiResponse(400, "current and new both passwords are required")
+      )
+    }
+    const parentId = req?.parent._id;
+    const parent = await Parent.findById(parentId);
+    if(!parent){
+      return res.status(404).json(
+        new ApiError(404,"parent not found")
+      )
+    }
+    const isPC = await parent.isPasswordCorrect(currentPassword);
+    console.log(isPC);  
+    if(isPC){
+        parent.password = newPassword;
+        parent.save({validateBeforeSave:false});
+        return res.status(200).json(
+          new ApiResponse(200,"password updated sucessfully!")
+        )
+    }else{
+      res.status(400).json(
+        new ApiError(400,"current password is invalid!")
+      )
+    }
+  } catch (error) {
+    return res.status(error?.status || 500 , error?.message || "something went wrong!")
+  }
+}
+
 const refreshAccessToken = async (req,res)=>{
     try {
         
@@ -146,5 +180,6 @@ export {
     login,
     logout,
     updateAccountDetails,
-    refreshAccessToken
+    refreshAccessToken,
+    changePassword
 }
