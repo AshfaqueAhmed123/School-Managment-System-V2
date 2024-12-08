@@ -2,7 +2,8 @@ import {Router} from "express"
 import {
     register,
     login,
-    logout
+    logout,
+    changePassword
 } from "../controllers/student.controllers.js"
 import {verfityStudent} from "../middlewares/studentAuth.middleware.js"
 import { Student } from "../model/student.model.js";
@@ -16,6 +17,7 @@ router.route("account-details").get();
 router.route("/progress").get();
 router.route("/assignments").get();
 router.route("/updateAccount").patch();
+router.route("/changePassword").patch(verfityStudent,changePassword);
 
 
 // admin will get this data

@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UpdatePassword = () => {
-  // State for the form inputs and errors
+
+  const notifyError = (message="something went wrong") => toast.error(message);
+  const notifySuccess = (message="something went wrong") => toast.success(message);
+
+  /// State for the form inputs and errors
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Dummy data (in a real-world application, the current password would be verified through an API)
-  const currentStoredPassword = 'student123'; // Simulating the current stored password
 
   // Handle form submission
   const handleSubmit = (e) => {
@@ -25,11 +29,6 @@ const UpdatePassword = () => {
       return;
     }
 
-    if (currentPassword !== currentStoredPassword) {
-      setError('Current password is incorrect');
-      return;
-    }
-
     if (newPassword !== confirmPassword) {
       setError('New password and confirm password do not match');
       return;
@@ -40,15 +39,47 @@ const UpdatePassword = () => {
       return;
     }
 
-    // If everything is valid
-    setSuccess('Password updated successfully!');
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
+    (async()=>{
+      try {
+        let res = await fetch("http://localhost:4000/student/changePassword",{
+          method:"PATCH",
+          headers:{
+            "content-type":"application/json",
+            "Authorization":localStorage.getItem("studentToken")
+          },
+          body:JSON.stringify({
+            currentPassword,
+            newPassword
+          })
+        })
+        res = await res.json();
+      if(res.statusCode == 200){
+        // If everything is valid
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+        setSuccess('Password updated successfully!');
+        notifySuccess(res?.message)
+        setTimeout(() => {
+          setSuccess('');
+        }, 2000);
+      }else{
+        setError(res?.message);
+        notifyError(res?.message)
+        setTimeout(() => {
+          setError('');
+        }, 2000);
+      }
+      } catch (error) {
+        console.log(error);
+        notifyError(error?.message)
+      }
+    })()
   };
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-[#2E2E48] rounded-lg shadow-lg">
+      <ToastContainer />
       <h2 className="text-white text-3xl font-bold mb-6">Update Your Password</h2>
 
       {/* Error or Success Messages */}
