@@ -4,7 +4,7 @@ import { FaPlay, FaTrash } from 'react-icons/fa';
 const MeetingCard = ({ meeting,deleteMeeting }) => {
 
   const startMeeting = () => {
-    window.open(`http://localhost:3000/${meeting?._id}`)
+    window.open(`http://localhost:3000/`)
   }
 
   return (

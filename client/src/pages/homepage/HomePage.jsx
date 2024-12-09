@@ -17,7 +17,7 @@ const HomePage = () => {
 
 
   return (
-    <div>
+    <div className="dark:bg-black dark:text-white">
       <Navbar />
       <Hero />
       <div className="custom-container">

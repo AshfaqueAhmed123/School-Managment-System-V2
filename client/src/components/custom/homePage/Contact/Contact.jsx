@@ -11,9 +11,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ContactSection = () => {
 
-  const notifyError = (message="something went wrong") => toast.error(message);
+  const notifyError = (message) => toast.error(message);
+  const notifySuccess = (message) => toast.success(message);
     const [result, setResult] = React.useState("");
-
+    
     const onSubmit = async (event) => {
       try {
         event.preventDefault();
@@ -30,15 +31,25 @@ const ContactSection = () => {
         const data = await response.json();
 
         if (data.success) {
-          setResult("Form Submitted Successfully");
+          setResult("Message sent Successfully!");
           event.target.reset();
+          notifySuccess("Message sent Successfully!")
+          setTimeout(() => {
+            setResult("");
+          }, 2000);
         } else {
-          console.log("Error", data);
-          notifyError(data)
+          console.error("Error", data);
+          notifyError(data.message)
           setResult(data.message);
+          setTimeout(() => {
+            setResult("");
+          }, 2000);
         }
       } catch (error) {
-        notifyError(error)
+        console.error(error)
+        notifyError("couldn't sent message, something went wrong!, TRY AGAIN!!")
+        setResult("");
+        event.target.reset();
       }
     }
 

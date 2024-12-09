@@ -41,7 +41,7 @@ const goBackHome = ()=> {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-300 flex justify-center items-center">
+    <div className="min-h-screen  bg-white dark:bg-black flex justify-center items-center">
       <div className="text-center py-10">
         {/* Button to go back to Home */}
         <button 

@@ -6,7 +6,7 @@ import { SiGooglemeet } from "react-icons/si";
 const MeetingCard = ({ meeting }) => {
 
   const joinMeeting = (e) => {
-    window.open(`http://localhost:3000/${e.target.id}`)
+    window.open(`http://localhost:3000/`)
   }
 
   return (

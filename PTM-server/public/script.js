@@ -29,13 +29,40 @@ navigator.mediaDevices.getUserMedia({
     })
 
     socket.on("user-connected",userId => {
+        Toastify({
+            text: "user connected",
+            duration: 3000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: false,
+            gravity: "top", // `top` or `bottom`
+            position: "left", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background:"rgb(47, 47, 211);",
+            },
+            onClick: function(){} // Callback after click
+          }).showToast();
         connectToNewUser(userId,stream);
     })
 })
 
 socket.on("user-disconnected",userId => {
     if(peers[userId]) peers[userId].close()
-    
+        Toastify({
+            text: "user disconnected",
+            duration: 3000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: false,
+            gravity: "top", // `top` or `bottom`
+            position: "left", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background:"rgb(215, 35, 35)",
+            },
+            onClick: function(){} // Callback after click
+          }).showToast();
 })
 
 myPeer.on('open',id => {
