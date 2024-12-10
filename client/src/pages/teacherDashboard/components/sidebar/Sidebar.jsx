@@ -3,6 +3,8 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { LIGHT_THEME } from "../../constants/themeConstants";
 import LogoBlue from "../../assets/images/logo_blue.svg";
 import LogoWhite from "../../assets/images/logo_white.svg";
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import {
   MdOutlineAttachMoney,
   MdOutlineBarChart,
@@ -158,7 +160,24 @@ const Sidebar = () => {
                 <span className="menu-link-text">Settings</span>
               </Link>
             </li>
-            <li className="menu-item">
+            <li className="menu-item" 
+            onClick={()=>{
+              confirmAlert({
+                title: 'Logout',
+                message: 'Are you sure you want to logout?',
+                buttons: [
+                  {
+                    label: 'Yes',
+                    onClick: () => window.location.href="/"
+                  },
+                  {
+                    label: 'No',
+                    onClick: () => {}
+                  }
+                ]
+              });
+            }}
+            >
               <Link to="" className="menu-link">
                 <span className="menu-link-icon">
                   <MdOutlineLogout size={20} />

@@ -2,7 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+.react-confirm-alert-overlay{
+  background-color: rgb(59 130 246 / 0.5) !important;
+}
 
+.react-confirm-alert{
+  background-color: transparent !important;
+  color: white;
+}
+
+.react-confirm-alert-body *{
+  /* background-color: #2e2e48; */
+  font-size: x-large;
+  font-weight: bold;
+}
 
 
 /* ... */

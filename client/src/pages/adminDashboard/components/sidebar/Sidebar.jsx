@@ -4,6 +4,8 @@ import { LIGHT_THEME } from "../../constants/themeConstants";
 import LogoBlue from "../../assets/images/logo_blue.svg";
 import LogoWhite from "../../assets/images/logo_white.svg";
 import * as DialogPrimitive from "@radix-ui/react-dialog"
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import {
   MdOutlineAttachMoney,
   MdOutlineBarChart,
@@ -198,36 +200,30 @@ const Sidebar = () => {
                 <span className="menu-link-text">Settings</span>
               </Link>
             </li>
-            <li className="menu-item">
-            <Dialog>
-            <DialogTrigger className="flex items-center">
-            <div className="menu-link">
+            <li className="menu-item"
+            onClick={()=>{
+              confirmAlert({
+                title: 'Logout',
+                message: 'Are you sure you want to logout?',
+                buttons: [
+                  {
+                    label: 'Yes',
+                    onClick: () => window.location.href = "/"
+                  },
+                  {
+                    label: 'No',
+                    onClick: () => {}
+                  }
+                ]
+              });
+            }}
+            >
+              <Link to="" className="menu-link">
                 <span className="menu-link-icon">
                   <MdOutlineLogout size={20} />
                 </span>
-                <span className="menu-link-text">
-                    logout
-                </span>
-              </div>
-            </DialogTrigger>
-            <DialogContent className="bg-[#383854] text-white">
-              <DialogHeader>
-                <DialogTitle className="mb-3 mx-3">Do you want to logout ? </DialogTitle>
-                <DialogDescription className="h-[100px] overflow-scroll">
-                  <div className="w-full h-full flex items-center justify-center gap-10">
-                    <button className="text-xl capitalize text-white bg-red-800 px-4 py-2 rounded-md cursor-pointer hover:bg-red-900" onClick={logout}>logout</button>
-                    <DialogPrimitive.Close>
-                    <button className="text-xl capitalize text-black bg-white px-4 py-2 rounded-md cursor-pointer hover:opacity-60">
-                      close
-                    </button>
-                    </DialogPrimitive.Close>
-                    
-                  </div>
-                </DialogDescription>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
-          
+                <span className="menu-link-text">Logout</span>
+              </Link>
             </li>
           </ul>
         </div>
