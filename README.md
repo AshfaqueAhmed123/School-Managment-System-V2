@@ -41,5 +41,9 @@
 <br>
 <br>
 ### Admin Dashboard fee tracker section
-!["Admin Dashboard fee tracker sectio"](./images/7.png)
+!["Admin Dashboard fee tracker section"](./images/7.png)
+<br>
+<br>
+### PTM portal
+!["PTM portal"](./images/11.png)
 
