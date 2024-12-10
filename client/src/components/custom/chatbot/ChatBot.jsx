@@ -63,7 +63,7 @@ const ChatBox = ({ endpoint, token }) => {
   };
 
   return (
-    <div className="w-full h-screen bg-[#2E2E48] text-white flex items-center justify-center p-4">
+    <div className="w-full h-screen bg-[#2E2E48] text-white flex items-center justify-center p-4 overflow-y-auto">
       <div className="w-full max-w-3xl bg-[#383854] rounded-lg overflow-hidden shadow-xl flex flex-col">
         {/* Chat Header */}
         <div className="p-4 bg-[#2E2E48] border-b border-[#383854] flex items-center justify-between">
@@ -71,7 +71,7 @@ const ChatBox = ({ endpoint, token }) => {
         </div>
 
         {/* Chat Messages */}
-        <div className="p-6 h-[400px] overflow-y-auto space-y-4 flex-1">
+        <div className="p-6 h-[400px] overflow-hidden space-y-4 flex-1">
           {messages.map((msg, index) => (
             <MessageBubble key={index} text={msg.text} sender={msg.sender} />
           ))}
