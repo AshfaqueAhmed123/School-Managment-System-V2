@@ -46,6 +46,7 @@ import subjectRouter from "./src/routes/subject.routes.js"
 import resourceRouter from "./src/routes/resource.routes.js"
 import attendenceRouter from "./src/routes/attendence.routes.js"
 import assignmentRouter from "./src/routes/assignment.routes.js"
+import AIChatBotRouter from "./src/routes/AIChatBot.routes.js"
 
 app.use("/admin", adminRouter);
 app.use("/student", studentRouter);
@@ -60,6 +61,7 @@ app.use("/subject",subjectRouter);
 app.use("/resources",resourceRouter);
 app.use("/attendence",attendenceRouter);
 app.use("/assignment",assignmentRouter);
+app.use("/AI/conversation",AIChatBotRouter)
 
 
 // AuthRoutes

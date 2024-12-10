@@ -4,10 +4,10 @@ import { CgProfile } from "react-icons/cg";
 
 // Dummy user data
 const initialUserData = {
-  fullName: "John Doe",
-  email: "john.doe@example.com",
+  fullName: "Ashfaque Ahmed",
+  email: "ashfaque@example.com",
   phone: "+1 234 567 890",
-  desc: "my description",
+  desc: "admin description... ",
 };
 
 const SettingsPage = () => {
