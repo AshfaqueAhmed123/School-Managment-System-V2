@@ -71,11 +71,11 @@ const ContactSection = () => {
         <div className="contact-col">
             <form onSubmit={onSubmit}>
                 <label>Your Name</label>
-                <input type="text" name='name' placeholder='Enter Your Name' required />
+                <input className='text-white' type="text" name='name' placeholder='Enter Your Name' required />
                 <label>Phone Number</label>
-                <input type="tel" name='phone' placeholder='enter your mobile number' required />
+                <input className='text-white' type="tel" name='phone' placeholder='enter your mobile number' required />
                 <label>Write your message here</label>
-                <textarea name="message" rows={6} placeholder='your message' required></textarea>
+                <textarea className='text-white' name="message" rows={6} placeholder='your message' required></textarea>
                 <button type='submit' className='btn dark-btn'>Submit now <img src={white_arrow} alt="" className='w-[25px] ml-3' /> </button>
             </form>
             <span>{result}</span>
