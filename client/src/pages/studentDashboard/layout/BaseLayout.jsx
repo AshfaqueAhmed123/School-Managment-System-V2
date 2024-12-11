@@ -1,4 +1,5 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { Sidebar } from "../components";
 import Bot from "../../../assets/bot.png"
 import {
@@ -24,7 +25,15 @@ const BaseLayout = () => {
             <DialogContent className="bg-[#383854] text-white">
               <DialogHeader>
                 <DialogTitle className="mb-3 mx-3 flex items-center justify-around">
-                  <span className="text-xl capitalize">AI ChatBot</span> <button className="btn capitalize">Go fullscreen</button>
+                  <span className="text-xl capitalize">AI ChatBot</span> 
+                  <Link to={"/student/AIChatBot"}>
+                      <DialogPrimitive.Close>
+                          <button className="btn capitalize">
+                              go full screen
+                          </button>
+                      </DialogPrimitive.Close>
+                  </Link>
+                  
                 </DialogTitle>
                 <DialogDescription className="h-[80vh] overflow-scroll">
                   <ChatBot endpoint={"/student"} token={localStorage.getItem("studentToken")}/>

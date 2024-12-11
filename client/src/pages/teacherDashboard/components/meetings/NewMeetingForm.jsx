@@ -7,9 +7,9 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 const CreateMeetingForm = ({setMeetings}) => {
 
   const [title,setTitle] = useState("")
-  const [instructor,setInstructor] = useState("farman");
+  const [instructor,setInstructor] = useState("teacher");
   const [Cclass,SetCclass] = useState(["1","2","3"]);
-  const [student,setStudent] = useState(["Ashfaque","afzal","other"]);
+  const [student,setStudent] = useState(["Ashfaque","student","other"]);
   const [date,setDate] = useState("");
   const [time,setTime] = useState("");
 

@@ -12,7 +12,7 @@ import Assignments from "./components/Assignments/Assignments"
 import Resources from "./components/resources/Resources"
 import Fee from "./components/TutionFee/Fee"
 import Settings from "./components/settings/Settings"
-
+import AIChatBotPage  from "./components/AIChatbotPage/ATChatBotPage"
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -37,6 +37,7 @@ function App() {
             <Route path="/resources" element={<Resources />} />
             <Route path="/fee" element={<Fee />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/AIChatBot" element={<AIChatBotPage/>} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

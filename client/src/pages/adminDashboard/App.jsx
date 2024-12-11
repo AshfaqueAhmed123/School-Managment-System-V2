@@ -13,6 +13,7 @@ import Classes from "./components/AllClasses/Classes";
 import NonAcademicStaff from "./components/Non-Academic-Staff/NonAcademicStaff";
 import Fee from "./components/TutionFee/Fee";
 import  Settings from "./components/settings/Settings";
+import AIChatBotPage from "./AIChatBotPage/AIChatBotPage";
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -39,6 +40,7 @@ function App() {
             <Route path="/NonAcademicStaff" element={<NonAcademicStaff />} />
             <Route path="/fee" element={<Fee/>} />
             <Route path="/settings" element={<Settings/>}/> 
+            <Route path="/AIChatBot" element={<AIChatBotPage/>}/> 
             <Route path="*" element={<PageNotFound/>} />
           </Route>
         </Routes>

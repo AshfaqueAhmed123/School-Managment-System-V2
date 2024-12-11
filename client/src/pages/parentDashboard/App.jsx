@@ -11,6 +11,7 @@ import Settings from "./components/settings/Settings"
 import Meeting from "./components/meetings/Meeting"
 import Children from "./components/children/Children"
 import Fee from "./components/Fee/Fee"
+import AIChatBotPage from "./components/AIChatBotPage/AIChatBotPage";
 
 
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="/meetings" element={<Meeting/>} />
             <Route path="/fee" element={<Fee/>} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/AIChatBot" element={<AIChatBotPage/>} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

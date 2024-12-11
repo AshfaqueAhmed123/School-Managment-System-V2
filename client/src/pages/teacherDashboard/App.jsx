@@ -13,7 +13,7 @@ import Resources from "./components/resources/Resources"
 import Settings from "./components/settings/Settings"
 import Classes from "./components/classes/Classes"
 import Meeting from "./components/meetings/Meeting"
-
+import AIChatBotPage from "./components/AIChatBotPage/AIChatBotPage"
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -39,6 +39,7 @@ function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/classes" element={<Classes/>} />
             <Route path="/meetings" element={<Meeting/>} />
+            <Route path="/AIChatBot" element={<AIChatBotPage/>} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
