@@ -1,19 +1,29 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-// Typing animation delay
 const typingDelay = 100; // Milliseconds between each word
 
 function formatResponse(rawText) {
-  return rawText;
+  let formattedText = rawText;
+
+  formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+  formattedText = formattedText.replace(/\*(.*?)\*/g, "<em>$1</em>");
+
+  formattedText = formattedText.replace(/\n/g, "<br/>");
+
+  formattedText = formattedText.replace(/`(.*?)`/g, "<code class='bg-gray-800 text-white p-1 rounded'>{$1}</code>");
+
+  return formattedText;
 }
 
 const ChatBox = ({ endpoint, token }) => {
   const [messages, setMessages] = useState([
     { text: "Hello! How can I assist you today?", sender: "bot" },
   ]);
-  const [input, setInput] = useState("hello");
+  const [input, setInput] = useState("generate a random quote");
   const [isTyping, setIsTyping] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false); // T
 
   const chatEndRef = useRef(null);
 
@@ -31,6 +41,13 @@ const ChatBox = ({ endpoint, token }) => {
       { text: input, sender: "user" },
     ]);
     setInput("");
+
+    // Add a placeholder message that simulates the bot typing
+    setIsProcessing(true);
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { text: "Bot is typing...", sender: "bot", placeholder: true }, // Placeholder message
+    ]);
 
     // Bot response with typing effect
     setIsTyping(true);
@@ -53,29 +70,33 @@ const ChatBox = ({ endpoint, token }) => {
       let frmtxt = formatResponse(res?.data);
 
       setTimeout(() => {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: frmtxt, sender: "bot" },
-        ]);
+        setMessages((prevMessages) => {
+          // Remove the placeholder and add the actual response
+          return prevMessages.filter(msg => !msg.placeholder).concat({ text: frmtxt, sender: "bot" });
+        });
+        setIsProcessing(false); // Turn off the typing animation
         setIsTyping(false);
-      }, typingDelay * 5); // Adjust delay as needed for the bot response
+      }, typingDelay * 5);
     })();
   };
 
   return (
-    <div className="w-full h-screen bg-[#2E2E48] text-white flex items-center justify-center p-4 overflow-y-auto">
-      <div className="w-full max-w-3xl bg-[#383854] rounded-lg overflow-hidden shadow-xl flex flex-col">
+    <div className="w-full h-screen bg-[#2E2E48] text-white flex items-center justify-center p-4">
+      <div className="w-full max-w-3xl bg-[#383854] rounded-lg shadow-xl flex flex-col">
         {/* Chat Header */}
         <div className="p-4 bg-[#2E2E48] border-b border-[#383854] flex items-center justify-between">
           <h2 className="text-lg font-semibold">Chatbot</h2>
         </div>
 
-        {/* Chat Messages */}
-        <div className="p-6 h-[400px] overflow-hidden space-y-4 flex-1">
+        {/* Chat Messages Container */}
+        <div
+          className="p-6 flex-1 space-y-4 overflow-y-auto"
+          style={{ maxHeight: "70vh" }}
+        >
           {messages.map((msg, index) => (
-            <MessageBubble key={index} text={msg.text} sender={msg.sender} />
+            <MessageBubble key={index} text={msg.text} sender={msg.sender} isProcessing={msg.placeholder} />
           ))}
-          <div ref={chatEndRef} /> {/* This is the scroll-to-bottom anchor */}
+          <div ref={chatEndRef} /> { }
         </div>
 
         {/* Input Area */}
@@ -101,7 +122,7 @@ const ChatBox = ({ endpoint, token }) => {
   );
 };
 
-const MessageBubble = ({ text, sender }) => {
+const MessageBubble = ({ text, sender, isProcessing }) => {
   const isUser = sender === "user";
 
   return (
@@ -113,11 +134,18 @@ const MessageBubble = ({ text, sender }) => {
       className={`flex ${isUser ? "justify-end" : "justify-start"} space-x-2`}
     >
       <div
-        className={`max-w-xs p-3 rounded-lg ${
-          isUser ? "bg-indigo-600 text-white" : "bg-[#383854] text-white"
-        } transition-all transform hover:scale-105`}
+        className={`max-w-xs p-3 rounded-lg ${isUser ? "bg-indigo-600 text-white" : "bg-[#383854] text-white"
+          } transition-all transform hover:scale-105`}
       >
-        <p>{text}</p>
+        {isProcessing ? (
+          <div className="flex space-x-2">
+            <div className="w-2.5 h-2.5 bg-white rounded-full animate-bounce"></div>
+            <div className="w-2.5 h-2.5 bg-white rounded-full animate-bounce delay-200"></div>
+            <div className="w-2.5 h-2.5 bg-white rounded-full animate-bounce delay-400"></div>
+          </div>
+        ) : (
+          <p dangerouslySetInnerHTML={{ __html: text }}></p>
+        )}
       </div>
     </motion.div>
   );
