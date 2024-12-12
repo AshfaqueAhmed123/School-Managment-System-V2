@@ -17,7 +17,7 @@ const BaseLayout = () => {
     <main className="page-wrapper">
       {/* left of page */}
       <Sidebar />
-      <div className="w-20 h-42 bg-white fixed bottom-0 right-0 mr-3 my-2 overflow-hidden flex items-center justify-center rounded-md cursor-pointer transition-all hover:scale-105" style={{zIndex:"1000"}}>
+      <div className="w-20 h-42 bg-transparent fixed bottom-0 right-0 mr-3 my-2 mb-5 animate-bounce overflow-hidden flex items-center justify-center rounded-md cursor-pointer transition-all hover:scale-105" style={{zIndex:"1000"}}>
           <Dialog>
             <DialogTrigger className="flex items-center">
               <img src={Bot} style={{width:"100%", height:"100%", objectFit:"cover" }} alt="Bot" />
