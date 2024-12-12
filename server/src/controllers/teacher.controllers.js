@@ -25,7 +25,7 @@ const register = async (req,res)=>{
       req.body;
 
     if (
-      [fullname, email, phone_number, password, classTeacherOfClass, isClassTeacher, job_description, subject].some(
+      [fullname, email, password, classTeacherOfClass,subject].some(
         (field) => field === ""
       )
     ) {
@@ -173,6 +173,39 @@ const changePassword = async (req,res) => {
   }
 }
 
+const getAllTeachers = async(req,res)=>{
+  try {
+    let AllTeachersList = await Teacher.find();
+    res.json({
+        list : AllTeachersList
+    })
+  } catch (error) {
+    return res.status(error?.status || 500 , error?.message || "something went wrong!") 
+  }
+}
+
+
+const deleteTeacher = async(req,res)=>{
+  try {
+    const teacherId = req.params.id;
+        if(!teacherId){
+            return res.status(400).json(
+                new ApiError(400,"teacher id is required")
+            )
+          }
+        const isDeleted = await Teacher.deleteOne({_id:teacherId});        
+        if(!isDeleted){
+            return res.status(500).json(
+                new ApiError(500,"something went wrong deleting teacher")
+            )
+        }
+        return res.status(200).json(
+            new ApiResponse(200,"teacher deleted sucessfully",isDeleted)
+        )
+  } catch (error) {
+    return res.status(error?.status || 500 , error?.message || "something went wrong!")
+  }
+}
 
 const refreshAccessToken = async (req,res)=>{
     try {
@@ -190,5 +223,7 @@ export {
     logout,
     updateAccountDetails,
     refreshAccessToken,
-    changePassword
+    changePassword,
+    getAllTeachers,
+    deleteTeacher
 }

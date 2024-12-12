@@ -25,7 +25,7 @@ const conversation = async (req,res) => {
 async function main(question="") {
   const chatCompletion = await getGroqChatCompletion(question);
   // Print the completion returned by the LLM.
-  return chatCompletion.choices[0]?.message?.content || "";
+  return chatCompletion.choices[0]?.message?.content;
 }
 
 async function getGroqChatCompletion(question) {

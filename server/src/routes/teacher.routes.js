@@ -4,8 +4,9 @@ import {
     register,
     login,
     logout,
-    changePassword
-
+    changePassword,
+    getAllTeachers,
+    deleteTeacher
 } from "../controllers/teacher.controllers.js"
 import { verifyTeacher } from "../middlewares/teacherAuth.middleware.js";
 import {verfifyAdmin} from "../middlewares/AdminAuth.middleware.js"
@@ -20,6 +21,7 @@ router.route("/logout").post(verifyTeacher,logout);
 router.route("account-details").get();
 router.route("/updateAccount").patch();
 router.route("/changePassword").patch(verifyTeacher,changePassword);
+router.route("/deleteTeacher/:id").delete(verfifyAdmin,deleteTeacher)
 
 // assignment routes
 router.route("/assignment").post().patch().delete();
@@ -40,12 +42,7 @@ router.route("/allTeachers").get(async(req,res)=>{
     })
 })
 
-router.route("/allTeachersList").get(async(req,res)=>{
-    let AllTeachersList = await Teacher.find();
-    res.json({
-        list : AllTeachersList
-    })
-})
+router.route("/allTeachersList").get(verfifyAdmin,getAllTeachers)
 
 
 

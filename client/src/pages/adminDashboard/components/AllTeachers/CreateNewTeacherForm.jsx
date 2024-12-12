@@ -1,10 +1,17 @@
+import { formatDate } from 'date-fns';
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const CreateTeacherForm = ({ onCreate, setTeachers }) => {
+const notifySucessTeacherCreation = (message) => toast.success(message);
+
+const CreateTeacherForm = ({ onCreate, setTeachers, getAllTeachers }) => {
   const [formData, setFormData] = useState({
     name: '',
     subject: '',
     grade: '',
+    email: '',
+    password: ''
   });
 
   // Handle form input changes
@@ -19,18 +26,40 @@ const CreateTeacherForm = ({ onCreate, setTeachers }) => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTeachers((prev) => [...prev,{
-      fullname:formData.name,
-      subject:formData.subject,
-      class : formData.grade
-    }])
+    // setTeachers((prev) => [...prev,{
+    //   fullname:formData.name,
+    //   subject:formData.subject,
+    //   class : formData.grade
+    // }])
+    (async () => {
+      let res = await fetch("http://localhost:4000/teacher/register", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({
+          fullname: formData.name,
+          email: formData.email,
+          password: formData.password,
+          classTeacherOfClass: formData.grade,
+          subject: formData.subject
+        })
+      });
+      res = await res.json();
+      if (res.statusCode == 200) {
+        notifySucessTeacherCreation("teacher created!")
+      }
+      await getAllTeachers();
+    })()
     // onCreate(formData); // Pass the form data to the parent onCreate function
     setFormData({
-      name: '',
-      subject: '',
-      grade : ''
+      // name: '',
+      // subject: '',
+      // grade : '',
+      // email : '',
+      // password : ''
     }); // Clear the form after submission
-    
+
   };
 
   return (
@@ -47,6 +76,40 @@ const CreateTeacherForm = ({ onCreate, setTeachers }) => {
           id="name"
           name="name"
           value={formData.name}
+          onChange={handleChange}
+          className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded-md"
+          placeholder="Enter teacher's name"
+          required
+        />
+      </div>
+
+      {/* Email Input */}
+      <div className="mb-4">
+        <label htmlFor="name" className="block text-sm font-medium mb-2">
+          Teacher Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded-md"
+          placeholder="teacher@example.mail"
+          required
+        />
+      </div>
+
+      {/* password Input */}
+      <div className="mb-4">
+        <label htmlFor="name" className="block text-sm font-medium mb-2">
+          Teacher password
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
           onChange={handleChange}
           className="w-full p-2 bg-gray-800 text-white border border-gray-600 rounded-md"
           placeholder="Enter teacher's name"
