@@ -1,95 +1,90 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../../../assets/iba.jpeg";
-import {Link} from "react-scroll"
-import menu_icon from "../../../../assets/menu-icon.png"
-import {Link as RLink} from "react-router-dom"
+import { Link } from "react-scroll";
+import menu_icon from "../../../../assets/menu-icon.png";
+import { Link as RLink } from "react-router-dom";
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("scroll", (e) => {
+    window.addEventListener("scroll", () => {
       window.scrollY > 50 ? setSticky(true) : setSticky(false);
     });
   }, []);
 
-  const [mobileMenu,setMobileMenu] = useState(false)
-  const toogleMenu = () => {
-    mobileMenu? setMobileMenu(false) : setMobileMenu(true)
-  }
+  const [mobileMenu, setMobileMenu] = useState(false);
+  const toggleMenu = () => {
+    setMobileMenu(!mobileMenu);
+  };
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [dashboardEndPoint,setDashboardEndPoint] = useState("")
+  const [dashboardEndPoint, setDashboardEndPoint] = useState("");
 
-  const sendRequestWithBeareerToken = () => {
+  const sendRequestWithBearerToken = () => {
     const studentToken = localStorage.getItem("studentToken");
     const teacherToken = localStorage.getItem("teacherToken");
     const parentToken = localStorage.getItem("parentToken");
     const adminToken = localStorage.getItem("adminToken");
 
     let token = null;
-    let endpoint = '';
+    let endpoint = "";
 
-    if(studentToken){
-      token = studentToken
-      endpoint = '/student';
-    }else if(teacherToken){
+    if (studentToken) {
+      token = studentToken;
+      endpoint = "/student";
+    } else if (teacherToken) {
       token = teacherToken;
-      endpoint = '/teacher';
-    }else if (parentToken){
+      endpoint = "/teacher";
+    } else if (parentToken) {
       token = parentToken;
-      endpoint = '/parent'
-    }else if (adminToken){
+      endpoint = "/parent";
+    } else if (adminToken) {
       token = adminToken;
-      endpoint = "/admin"
-    }else{
-      console.log("No Valid Auth token found in localstorage.");
-      return 
+      endpoint = "/admin";
+    } else {
+      console.log("No valid auth token found in localStorage.");
+      return;
     }
 
     setDashboardEndPoint(endpoint);
 
     try {
-      (async()=>{
-        let res = await fetch(`http://localhost:4000/Auth${endpoint}`,{
-          method : "GET",
-          headers:{
-            "Authorization":`Bearer ${token}`
-          }
+      (async () => {
+        let res = await fetch(`http://localhost:4000/Auth${endpoint}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
         res = await res.json();
-        if(res.success == true){
-          setIsLoggedIn(true)
+        if (res.success === true) {
+          setIsLoggedIn(true);
         }
-      })()
+      })();
     } catch (error) {
-      console.log("some error sending Auth request :-- ",error);
-      
+      console.log("Error sending Auth request: ", error);
     }
+  };
 
-  }
-
-  const redirectToDashboard = useNavigate()
-  
+  const redirectToDashboard = useNavigate();
 
   useEffect(() => {
-      sendRequestWithBeareerToken()
+    sendRequestWithBearerToken();
   }, []);
-
 
   return (
     <nav
-      className={`" w-full text-white px-0 py-3  fixed top-0 left-0 flex items-center justify-between z-10 custom-container  " ${
+      className={`w-full text-white px-0 py-3 fixed top-0 left-0 flex items-center justify-between z-10 custom-container ${
         sticky ? "dark-nav" : ""
       }`}
     >
-      {/* <img src={logo} className="w-[100px]" alt="ibaccdadu" /> */}
       <div className="w-20 h-20 rounded-full bg-red-500 overflow-hidden">
-          <img src={logo} alt="" />
+        <img src={logo} alt="College Logo" />
       </div>
-      <ul className={mobileMenu ? "" : "hide-mobile-menu flex items-center"}>
+      <ul className={`nav-links ${mobileMenu ? "open" : ""}`}>
         <li className="inline-block my-2 mx-4 text-[16px]">
           <Link to="hero" smooth={true} offset={0} duration={500}>
             Home
@@ -97,41 +92,48 @@ const Navbar = () => {
         </li>
         <li className="inline-block my-2 mx-4 text-[16px]">
           <Link to="faculty" smooth={true} offset={-260} duration={500}>
-          Our faculty
+            Our Faculty
           </Link>
         </li>
         <li className="inline-block my-2 mx-4 text-[16px]">
           <Link to="about" smooth={true} offset={-250} duration={500}>
-            About us
+            About Us
           </Link>
         </li>
-        {/* <li className="inline-block my-2 mx-4 text-[16px]">
-          <Link to="college" smooth={true} offset={0} duration={500}>
-            College
-          </Link>
-        </li> */}
         <li className="inline-block my-2 mx-4 text-[16px]">
           <Link to="testimonials" smooth={true} offset={-260} duration={500}>
-          Testimonials
+            Testimonials
           </Link>
         </li>
         <li className="inline-block my-2 mx-4 text-[16px]">
-        <Link className='btn' to='contact' smooth={true} offset={-260} duration={500}>Contac Us</Link>
+          <Link className="btn" to="contact" smooth={true} offset={-260} duration={500}>
+            Contact Us
+          </Link>
         </li>
         <RLink to="/login">
-        <li className={"btn inline-block my-2 text-[16px]"}>
-            sign in
-        </li>
+          <li className="btn inline-block my-2 text-[16px]">Sign In</li>
         </RLink>
-        <li className={"inline-block my-2 mx-4 text-[16px]"}>
-        <Link className={`px-6 py-5 rounded-3xl bg-yellow-600 transition-all hover:bg-yellow-500 text-black ${isLoggedIn?"":"hidden"} `} to='' smooth={true} offset={-260} duration={500}
-        onClick={()=>{
-          redirectToDashboard(`${dashboardEndPoint}`)
-        }}
-        >Dashboard</Link>
+        <li className="inline-block my-2 mx-4 text-[16px]">
+          <Link
+            className={`px-6 py-5 rounded-3xl bg-yellow-600 transition-all hover:bg-yellow-500 text-black ${isLoggedIn ? "" : "hidden"}`}
+            to=""
+            smooth={true}
+            offset={-260}
+            duration={500}
+            onClick={() => {
+              redirectToDashboard(`${dashboardEndPoint}`);
+            }}
+          >
+            Dashboard
+          </Link>
         </li>
       </ul>
-      <img src={menu_icon} alt="" className="menu-icon" onClick={toogleMenu} />
+      <img
+        src={menu_icon}
+        alt="Menu Icon"
+        className="menu-icon"
+        onClick={toggleMenu}
+      />
     </nav>
   );
 };

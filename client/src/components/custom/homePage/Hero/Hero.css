@@ -1,32 +1,122 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Protest+Revolution&display=swap');
 
-.hero{
+.hero {
     width: 100%;
-    min-height:100vh;
-    background: linear-gradient(rgba(8,0,58,0.7),rgba(8,0,58,0.7)), url("../src/assets/bg1.jpg");
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(8, 0, 58, 0.7), rgba(8, 0, 58, 0.7)), url("../src/assets/bg1.jpg");
     background-position: center;
-    background-size: 100%;
+    background-size: cover;
     color: #fff;
-  }
+    padding: 0 20px;
+    position: relative;
+    overflow: hidden;
+}
 
-  /* media query */
-  @media (max-width:850px){
-    .hero-text h1{
-      font-family: "Protest Revolution", sans-serif;
-      font-style: normal;
-      font-size: 40px;
-    }
-  }
+.hero-text {
+    text-align: center;
+    max-width: 900px;
+    z-index: 1;
+}
 
-  @media (max-width:650px){
-    .hero-text h1{
-      font-size: 30px;
-      max-width: 400px;
-      margin: auto;
+.hero-text h1 {
+    font-family: "Protest Revolution", sans-serif;
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 1.3;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    animation: fadeInUp 1s ease-out forwards; /* 'forwards' ensures it stays visible */
+}
+
+.hero-text p {
+    font-size: 20px;
+    margin: 15px auto;
+    max-width: 800px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+    animation-delay: 0.5s; /* Delay to make sure the paragraph appears after the title */
+}
+
+.hero-text button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    opacity: 0; /* Initial opacity for the button */
+    animation: fadeInUp 1s ease-out forwards;
+    animation-delay: 1s; /* Delay to make sure the button appears after the paragraph */
+}
+
+.hero-text button:hover {
+    background-color: #f55d47;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hero-text button img {
+    width: 20px;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.hero-text button:hover img {
+    transform: translateX(5px);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 850px) {
+    .hero-text h1 {
+        font-family: "Protest Revolution", sans-serif;
+        font-size: 40px;
     }
-    .hero-text p{
-      font-size: 14px;
-      margin: 15px auto 30px;
+
+    .hero-text p {
+        font-size: 16px;
+        max-width: 700px;
     }
-  }
+}
+
+@media (max-width: 650px) {
+    .hero-text h1 {
+        font-size: 30px;
+        margin: 20px auto;
+    }
+
+    .hero-text p {
+        font-size: 14px;
+        margin: 15px auto 25px;
+        line-height: 1.5;
+    }
+
+    .hero-text button {
+        font-size: 16px;
+        padding: 10px 25px;
+    }
+}
+
+/* Keyframe animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
